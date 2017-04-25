@@ -1,45 +1,147 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf820
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red74\green0\blue255;\red255\green255\blue255;\red0\green0\blue0;
+\red0\green0\blue0;\red255\green255\blue255;\red183\green137\blue138;}
+{\*\expandedcolortbl;;\cssrgb\c36732\c20485\c100000;\csgray\c100000;\csgray\c0;
+\csgenericrgb\c0\c0\c0;\csgenericrgb\c100000\c100000\c100000;\cssrgb\c77253\c61123\c61082;}
+\margl1440\margr1440\vieww10800\viewh15020\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 This is a rough version of the README for my final project\
+\f0\fs22 \cf0 \
+206 Final Project Readme\
 \
-1. The first 2 sources I got are from OMBD and from API\
+Option 2 - Movie Assignment \
 \
-2. I used cache pattern for the sources\
+Overall\
 \
-3. The class I have is Movie, the instance variable I have are:\
-	(1) self.title, self.director, self.imdb, self.actors, self.id, self.language and self.country\
-	(2) The two member function I have are\
-		(1) list of actors, which return the full list of actors mentioned in the omdb system\
-		(2) number_of_language: which return the number of language that one movie has \
+	1. Objective: This code creates a class called Movie and create instances from Tweepy API and OMDB API, and tried to manipulate data/table relationship based on the instance\
 \
-4. The three tables I have are Tweets, Users and Movies\
+	2. Runs this code return two item( 206_final.json and 206_final.txt) \
 \
-5. Queries : See section below\
-\
-6. Method used: Set comprehension, List comprehension, accumulation in dictionaries and new containers,  sorting with a key parameter \
-\
-7. I provide tests for each part for even parts that are not covered by function \
-\
-2 test methods \
-\
-\
-My Confusion:\
-	# How to avoid defining one variable for a multiple of times? \
-		1. For example, the python does not recognize the dict1 variable I defined in my test case class just below the class declaration so that I have to redefine it each time for each test function. \
-		2. Can I collapse the \'93making table step\'94 with the  \'93making instance\'94 step because it is taking up too much space and time?\
+	3. Creates three database tables (Tweet for tweet info described in the spec / Movie for each movie item / and User for every distinct user in the neighborhood)\
 	\
-		3. Could someone maybe look at it to see if I have fulfilled the final project\'92s requirement except the readme/document and the test cases? \
+	4. Under the presence of twitter_info.py, run this code either through GUI or in the terminal type: python 206_final.py\
+\
+	5. Dependencies: \
+			(1) install sqlite3 and tweeps with pip3\
+			(2) import other required library\
+			(3) Import twitter_info.py stores user\'92s private key and twitter information which should be kept separately.\
+			(4) require to run python3 \
+	6. Files included:\
+		final_tweets.db, SI206_final.json, 206_final.txt\
+		* final_tweets.db: a sql database with the tables mentioned above, used for query operations\
+		* SI206_final.json: a json file for OMDB and Tweepy requests return \
+		* 206_final.txt: a file for the output results\
+\
+Functions\
+\
+	(1) \cf2 \cb3 \CocoaLigature0 get_user_tweets\cf4 ():\
+		(i) input: (required) - handle \
+		(ii)return value: a list of dictionaries called twitter_results\
+		(iii) Behavior: as per required in the spec, using this function to return results of a tweets from a user\'92s timeline with handle being user\'92s id.\
+This function get and cache data about a twitter user. \
 	\
-		4. If I were to make a Tweet Class, what will it look like?\
-		\
-		5. Any fast/concise/elegant way to create table in a loop?\
-		\
-		6. anything else for query suggestion besides the ones I have right now?\
+	(2) get_item_tweets():\
+		(i) input: (required) - handle\
+		(ii) return value: a list of dictionaries called twitter_results\cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 		(iii) Behavior: as per required in the spec, using this function to return results of a tweets from a searchterm with handle the search key word.\
+This function get and cache data based on a search term.\
+\
+	(3) get_omdb():\
+		(i) input: (required) - title\
+		(ii)return: a dictionary object associated with one title \
+		(iii)behavior: return a dictionary object with the title from the database of OMDB.\
+	\
+	(4) createmovie():\
+		(i) input: (required) - title\
+		(ii)return: a list of dictionaries associated with movie titles and cache them into SI_final.json\
+		(iii)behavior: create a list of dictionaries with movie titles and cache them\
+\
+\
+Class\
+	(1) Movie\
+	(2) Instance: each instance represents a movie instance which describes a omdb return\
+	(3) Required Constructor Input: a OMDB dictionary\
+	(4) Methods:\
+		(0) __init__\
+			(i) dict1\
+			(ii)behavior: set title to dict1\'92s title, set instance director to dict1\'92s director, set imdb_ranking to dict1\'92s imdbrating, set actors to the first actor of a list of actors in dict1, set id to dict1\'92s imdbid, set language to dict1\'92s language, set country to dict1\'92s country\
+			(iii)return an instance of movie \
+\
+		(1) __str__\
+			(i) self\
+			(ii)behavior: print the str method to its\'92 own title\
+			(iii)return: string\
+		(2) number_of_language(self):\
+			(i) self\
+			(ii) calculate the number of language of a movie\
+			(iii)return a int represents the number \
+\
+\
+Database\
+	1. Creates three tables: Tweets, Movies and Users\
+	2. Tweets:\
+		Each row represents: Tweet_id(int primary key), tweet text under this id(text), the user_posted(id int), movie_id that associated with this tweet(int), num_favours of the user(int) , and the retweets count(int)\
+		attributes: \cf5 \cb3 tweet_id, text, user_posted, movie_id, num_favs, retweets \
+\cf4 \cb3 	3. Movies:\
+		Each row represents: Moive_id(text, primary key), a movie title associated with the movie_id, the name of the director of the movie(text), the number of languages of this movie(int), the imdb rating(int), the top_bill actor/tress(text) and the countries that it represents.\
+		attributes: \cf5 \cb6 movie_id, title, director, num_language, imdb, top_bill, country\cf7 \
+	\cf4  
+\f1\fs24 \cf0 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \cb1 	4. Users:\
+		Each row represents: A user with user_id(text, primary key), the screen_name of this user(text), the number of favorites that it sends(int), and its description(text) \
+		attributes:  
+\f0\fs22 \cf5 \cb3 \CocoaLigature0 user_id, screen_name, num_favs, description\
+\
+\
+Data Manipulation\
+\
+	1. For Data_Manipulation, I created a function called make_query to handle all the queries\
+\cf7 \
+		Query 1:\
+			What does it do:\
+			Useful:\
+			What you expect:\
+	 	\
+		Query 2:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf7 			What does it do:\
+			Useful:\
+			What you expect:\
+\
+		Query 3:\
+			What does it do:\
+			Useful:\
+			What you expect:\
+\
+		Query 4:\
+			What does it do:\
+			Useful:\
+			What you expect:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\fs24 \cf0 \cb1 \CocoaLigature1 \
+Why do I choose to do this project:\
+	Because I did not know too much about database even the simple ones, so I thought it might be a good idea to explore in this field to train my skills. \
+\
+Lines Point:\
+	Class Definition Line Starts:  Line 20\
+	Get tweet and cache by id : Line 75\
+	Get tweet and cache by search item: Line 89\
+	OMDB Cache: Line 117\
+	Create instances of Movie: Line 141\
+	Create Table Tweets: Line 198\
+	Create Table Users: Line 206\
+	Create Table Moves: Line 212\
+	Load Data into Tweets Table: Line 226\
+	Load Data into Users Table: Line 244\
+	Load Data into Movie Table: Line 256\
+	Query: Line 269\
+	Techniques: \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 \
 \
 \
