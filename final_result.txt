@@ -1,0 +1,170 @@
+
+
+BELOW THIS LINE IS MY SUMMARY STATSS:
+
+     List of Movie Titles:
+
+         Friends
+         Forrest Gump
+         James Bond
+
+
+     Tweets information:
+
+         The total number of tweets is : 45
+
+         The user ids are: 
+
+
+            User is 178141430
+            User is 2794961965
+            User is 4846611345
+            User is 2722806816
+            User is 2582796231
+            User is 75422874
+            User is 39670511
+            User is 364627424
+            User is 546898786
+            User is 546898786
+            User is 836029356
+            User is 546898786
+            User is 4868355929
+            User is 2896481109
+            User is 2161704517
+            User is 847085797710974976
+            User is 23901220
+            User is 824390949178576896
+            User is 827930422684295168
+            User is 2969212684
+            User is 284372685
+            User is 504893013
+            User is 1136403954
+            User is 874793618
+            User is 14553940
+            User is 512375802
+            User is 414391472
+            User is 44977431
+            User is 81762767
+            User is 61366547
+            User is 872595546
+            User is 962168203
+            User is 53095936
+            User is 872595546
+            User is 100868528
+            User is 82923017
+            User is 116001645
+            User is 2762562461
+            User is 132561780
+            User is 116001645
+            User is 2762562461
+            User is 135823542
+            User is 709504544842104834
+            User is 116001645
+            User is 82923017
+the movie ids are:   
+       tt0255268
+       tt0109830
+       tt0108778
+
+
+Query Summaries
+
+
+     The long words that were used by users with 10 less characters are
+ : 
+         #BRONCOS
+         #NUGGETS
+         #OKSTATE
+         #ROCKIES
+         #SempreAmunt
+         #THUNDER
+         #Videogames
+         #comedy
+         #improv
+         #podcast
+         @TheIJR
+         @coslive.
+         @heatstreet
+         @ricochet
+         Archive
+         Award-winning
+         Bentley
+         Brasil.
+         Cavalli
+         Cinema,
+         Contributing
+         Contributor
+         Culture
+         Currently
+         Design,
+         Enthusiast
+         Football
+         Galatians
+         Jones/Daily
+         LoL{Vsanchez28}
+         Magazine/Mother
+         Messages
+         PS4{iTs_SuGaR_-}
+         Publisher
+         RalphLauren
+         Roberto
+         Separate
+         Support
+         Twitter
+         Veidojam
+         Vulture
+         Wilderness
+         Writer.
+         addict.
+         advice.
+         attitude
+         beautiful
+         bondage."
+         bērnības
+         comment?
+         completo
+         currentyashar@gmail.com
+         elements
+         entangled
+         entertainment.
+         entretenimento
+         evolutionary.
+         furniture.
+         gkdinformation@gmail.com
+         improvise
+         insane,
+         interest
+         internet
+         internet.
+         liberty
+         música!
+         noteworthy
+         notifications
+         oficial
+         otherwise
+         projects
+         promos,
+         publication
+         re-tweet
+         ridiculous,
+         sarcastic
+         something
+         submitted
+         support
+         therefore
+         traditions!
+         tradīcijas
+         turnkey
+         vecumam!
+         warning*
+         wherewith
+
+
+     The title of the movie with most retweets: 
+  James Bond
+
+
+     The total number of movie languages with rating higher than 8 : 3
+
+
+     The  number of a user who has the most number of favourites : 546898786

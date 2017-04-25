@@ -100,33 +100,36 @@ Data Manipulation\
 \
 	1. For Data_Manipulation, I created a function called make_query to handle all the queries\
 \cf7 \
-		Query 1:\
-			What does it do:\
-			Useful:\
-			What you expect:\
+		\cf5 Query 1:  \
+			What does it do: find the long words(more than 6 characters in all the user descriptions where the screen name is less than 10 characters \
+			Useful: It is important to spot the correlation between a short screen_name and the corpos that it use for its description \
+			What you expect: return a list of long words used by these users who have less than 10 character \
 	 	\
 		Query 2:\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf7 			What does it do:\
-			Useful:\
-			What you expect:\
+\cf5 			What does it do: get the title of the movie that has been retweets most \
+			Useful: it is obvious that some people want to find out the commercial value of a movie on twitter\
+			What you expect: a movie name \
 \
 		Query 3:\
-			What does it do:\
-			Useful:\
-			What you expect:\
+			What does it do: total number of language with imdv higher than 8\
+			Useful: I want to see if movie with higher rating tend to have more language or fewer languages \
+			What you expect: a number that has been cumulated from dictionry \
 \
 		Query 4:\
-			What does it do:\
-			Useful:\
-			What you expect:\
+			What does it do: find the user who has the biggest number of num of favorites \
+			Useful: it is helpful with the user research \
+			What you expect: a user_id \cf7 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f1\fs24 \cf0 \cb1 \CocoaLigature1 \
-Why do I choose to do this project:\
+
+\f0\fs22 Why do I choose to do this project:\
+	\
 	Because I did not know too much about database even the simple ones, so I thought it might be a good idea to explore in this field to train my skills. \
 \
 Lines Point:\
+	\
 	Class Definition Line Starts:  Line 20\
 	Get tweet and cache by id : Line 75\
 	Get tweet and cache by search item: Line 89\
@@ -139,7 +142,17 @@ Lines Point:\
 	Load Data into Users Table: Line 244\
 	Load Data into Movie Table: Line 256\
 	Query: Line 269\
-	Techniques: \
+	Generate Files: Line 329 \
+\
+	Techniques:   \
+		(1) Set Comprehensions: Line 277\
+		(2) List Comprehensions: Line 276\
+		(3) Accumulation in dictionaries: Line 309\
+		(4) New methods called OrderedDictionary from collection library: Line 315\
+		(5) Sorting with a key parameter: Line 319\
+		\
+			
+\f1\fs24 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
 \
