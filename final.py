@@ -25,7 +25,7 @@ class Movie(object):
         self.director = dict1["Director"]
         self.imdb = dict1["imdbRating"]
         act = dict1["Actors"]
-        self.acts = [x.strip() for x in act.split(',')]
+    #    self.acts = [x.strip() for x in act.split(',')]
         listactors = [x.strip() for x in act.split(',')]
         self.actors = listactors[0]
         self.id = dict1["imdbID"]
@@ -35,9 +35,9 @@ class Movie(object):
     def __str__(self):
         return self.title
     
-    def list_of_actors(self):
-        listone = self.acts
-        return [x.strip() for x in listone.split(',')]
+  #  def list_of_actors(self):
+ #       listone = self.acts
+#        return [x.strip() for x in listone.split(',')]
 
     def number_of_language(self):
         listone = self.language
@@ -56,7 +56,7 @@ auth.set_access_token(access_token, access_token_secret)
 # Set up library to grab stuff from twitter with your authentication, and return it in a JSON format 
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
-CACHE_FNAME = "SI206_final.json"
+CACHE_FNAME = "206_final_project_cache.json"
 
 
 
@@ -114,21 +114,31 @@ def get_omdb(title):
     #print(dict1[title])
     return dict1[title]
 
-def createmovie():
-    result = []
-    list1 = ["friends","forrest gump","james bond"]
-    for item in list1:
-        dicc={}
-        dicc = get_omdb(item)
-        result.append(dicc)
-    return result
+def createmovie(item):
+    #result = []
+    #list1 = ["friends","forrest gump","james bond"]
+    
+    unique_identifier = "omdb_{}".format(item)
+    if unique_identifier in CACHE_DICTION:
+        omdb_results = CACHE_DICTION[unique_identifier]
+    else:
+        omdb_results={}
+        omdb_results = get_omdb(item)
+        CACHE_DICTION[unique_identifier] = omdb_results
+        f = open(CACHE_FNAME,'w')
+        f.write(json.dumps(CACHE_DICTION))
+        f.close()
+    return omdb_results
 
-listone = []
 
-listone=createmovie()
+list_of_movies = ["friends","forrest gump","james bond"]
+result = []
+for item in list_of_movies:
+    result.append(createmovie(item))
 
 
-movies = [Movie(i) for i in listone]
+
+movies = [Movie(i) for i in result]
 
 # Comments: using list comprehension to create a list of movies, this will create three movies 
 # using "Friends" , "Forrest Gump","James Bond"
@@ -267,7 +277,7 @@ def makequery():
     description_word = { y for x in description_length_screen for y in x.split()}
     long_word = [x for x in description_word if len(x) > 6]
     long_word = sorted(long_word)
-    print(long_word)
+#    print(long_word)
     #cnt = Counter()
    
     # the longest word in the description 
@@ -282,10 +292,12 @@ def makequery():
     query = "SELECT SUM(Tweets.retweets),Movies.title FROM Tweets INNER JOIN Movies ON Tweets.movie_id = Movies.movie_id GROUP BY Tweets.movie_id"
     cur.execute(query)
     listone = cur.fetchall()
-#    pdb.set_trace()
-    title_movie = sorted(listone)[0][1]
     #pdb.set_trace()
-    print(title_movie)
+   # print(listone)
+    title_movie = sorted(listone)[2][1]
+    number_movie = sorted(listone)[2][0]
+    #pdb.set_trace()
+    #print(title_movie)
     
 
     # total number of language with imdb rating higher than 8
@@ -310,11 +322,45 @@ def makequery():
     itemdict = list(ordered.items())
     biggest_value = itemdict[0][0]
 
+    with open("final_result.txt","w") as f:
+        print("\n\nBELOW THIS LINE IS MY SUMMARY STATSS:\n",file=f)
+        print("     List of Movie Titles:\n",file=f)
+        for item in movies:
+            print("         %s" %(str(item)),file=f)
+            #print('\n',file=f)
+        print("\n",file=f)
+        print("     Tweets information:\n",file=f)
+        print("         The total number of tweets is : 45\n",file=f)
+        print("         The user ids are: ",file=f)
+        print("\n",file=f)
+        for item in tweets:
+            print("            User is %s" %(item["user_posted"]),file=f)
+        print("\n",file=f)
+        print("     The movie ids are:   ",file=f)
+        for item in ["tt0255268","tt0109830","tt0108778"]:
+            print("           %s" %(item),file=f)
+        # query summary
+        print("\n",file=f)
+        print("Query Summaries",file=f)
+        print("\n",file=f)
+        print("     The long words that were used by users with 10 less characters are\n : ",file=f)
+        for item in long_word:
+            print("         %s" %(item),file=f)
+          #  print("\n",file=f)
+        print('\n',file=f)
+        print("     The title of the movie with most retweets: \n  {}".format(title_movie),file=f)
+        print("     The number of retweets: {}".format(number_movie),file=f)
+        print('\n',file=f)
+        print("     The total number of movie languages with rating higher than 8 : {}".format(total_num_imdb),file = f)
+        print('\n',file=f)
+        print("     The  number of a user who has the most number of favourites : {}".format(biggest_value),file=f)
+
 
 
 makequery()
+conn.close()
 
-
+# generate files
 
 
 
@@ -328,40 +374,36 @@ print("\n\nBELOW THIS LINE IS OUTPUT FROM TESTS:\n")
 
 
 class Constructor1(unittest.TestCase):
-    dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
+    dict1 = dict([('Actors','adf,hsz,zhong,bob'),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
         
     def test_constructor(self):
-        dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
+        dict1 = dict([('Actors','adf,hsz,zhong,bob'),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
         s = Movie(dict1)
         self.assertEqual(s.title,"the great Zhong")
     def test_str(self):
-        dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
+        dict1 = dict([('Actors','adf,hsz,zhong,bob'),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
         m = Movie(dict1)
-        self.assertEqual(print(m),"the great Zhong")
+        self.assertEqual(str(m),"the great Zhong")
     def test_imdb(self):
-        dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
+        dict1 = dict([('Actors','adf,hsz,zhong,bob'),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
 
         l = Movie(dict1)
         self.assertEqual(l.imdb,1.5)
     def test_country(self):
 
-        dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
+        dict1 = dict([('Actors','adf,hsz,zhong,bob'),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
         p = Movie(dict1)
         self.assertEqual(p.country,"China")
     
     def test_director(self):
-        dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
+        dict1 = dict([('Actors','adf,hsz,zhong,bob'),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
         q = Movie(dict1)
         self.assertEqual(q.director,'Shan')
     def test_num_of_language(self):
-        dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
+        dict1 = dict([('Actors','adf,hsz,zhong,bob'),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
         w = Movie(dict1)
         self.assertTrue(w.number_of_language()==1)
-    def test_list_of_actors(self):
 
-        dict1 = dict([('Actors',['adf','hsz','zhong','bob']),('Title',"the great Zhong"),('imdbRating',1.5),('imdbID',123123),('Country','China'),('Language','Chinese'),('Director','Shan')])
-        e = Movie(dict1)
-        self.assertTrue(len(e.list_of_actors())==4)
 
 class Task2(unittest.TestCase):
     def test_tweets_1(self):
@@ -414,14 +456,30 @@ class Task2(unittest.TestCase):
         cur = conn.cursor()
         cur.execute('SELECT * FROM Movies');
         result = cur.fetchall()
-        self.assertTrue(len(result)==3, "Testing there are 3 records in the Movie database")        
+        self.assertTrue(len(result)==3, "Testing there are 3 records in the Movie database")
+        conn.close()
     def test_movie_2(self):
         conn = sqlite3.connect('final_tweets.db')
         cur = conn.cursor()
         cur.execute('SELECT * FROM Movies');
         result = cur.fetchall()
         self.assertTrue(len(result[0])==7, "Testing there are 7 column in the Movie database")
+        conn.close()
 
+
+class Task3(unittest.TestCase):
+    def test_get_tweet_1(self):
+        res = get_item_tweets("united states")
+        self.assertEqual(type(res),type(["sd"]))
+    def test_get_user_tweet_1(self):
+        res = get_user_tweets("umich")
+        self.assertEqual(type(res),type(["sd"]))
+    def test_create_movie_1(self):
+        res = createmovie("et")
+        self.assertEqual(res["imdbRating"],"7.2")
+    def test_create_movie_2(self):
+        res = createmovie("et")
+        self.assertEqual(res["Director"],"Philippe Muyl")
 
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    unittest.main(verbosity=2,warnings='ignore')
